@@ -15,8 +15,8 @@ def train_batch(model, optimizer, batch):
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--input_size", type=int, default=300)
-parser.add_argument("--embedding_size", type=int, default=1024)
+parser.add_argument("--input_size", type=int, default=300, help="Input embedding size")
+parser.add_argument("--embedding_size", type=int, default=1024, help="Sequence embedding size")
 parser.add_argument("--max_sequence_len", type=int, default=100)
 parser.add_argument("--lr", type=float, default=0.1)
 parser.add_argument("--cuda", action="store_true")
@@ -26,5 +26,5 @@ params.device = torch.device('cuda:0') if params.cuda else torch.device('cpu')
 model = RAE(params)
 optimizer = optim.SGD(model.parameters(), lr=params.lr)
 
-batch = torch.arange(900).float().view(1, 3, 300)
+batch = torch.arange(900).float().view(1, 3, 300) # expected batch of shape: (batch_size, sequence_length, input_embedding_size)
 train_batch(model, optimizer, batch)
