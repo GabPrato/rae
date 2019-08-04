@@ -60,7 +60,7 @@ class RAE(nn.Module):
             timestep_encoding = self.get_timestep_encoding(x, recursion_count)
             x = torch.cat((x, timestep_encoding), dim=2)
             x = self.encoder(x)
-        return x, recursion_count
+        return x, recursion_count + 1
 
     def decode(self, x, recursion_count):
         timestep_encoding = self.get_timestep_encoding(x, recursion_count)
@@ -69,7 +69,7 @@ class RAE(nn.Module):
         x = x.view(x.shape[0], 2, self.params.embedding_size)
         x = self.decoder_part2(x)
 
-        for recursion_count in range(recursion_count - 1, 0, -1):
+        for recursion_count in range(recursion_count - 1, 1, -1):
             timestep_encoding = self.get_timestep_encoding(x, recursion_count)
             x = torch.cat((x, timestep_encoding), dim=2)
             x = self.decoder_part1(x)
