@@ -4,11 +4,11 @@
 ## Requirements
 * Python 3.7
 * Pytorch 1.x
-* (For optional dataset generation) h5py
+* (Optional, for dataset generation) h5py
 
 ## Training Example
 ```bash
-python train.py
+python train.py --dataset_path=<path>
 ```
 Dataset not included, but `dataset_generator.py` can be used to generate a hdf5 dataset file from a text file of tokenized sentences, one per line.
 
